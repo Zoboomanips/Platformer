@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 0
+    path: Assets/Scenes/SampleScene.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Load Screen.unity
+    guid: 1797fd99df580074c99733c0673db121
+  - enabled: 1
+    path: Assets/Scenes/Character Select.unity
+    guid: 88a649f654592f042b39555d6cbd5692
+  - enabled: 1
+    path: Assets/Scenes/Battlefield.unity
+    guid: e9bc37d0537f7dc49ace5b9df17c6c40
+  - enabled: 1
+    path: Assets/Scenes/Game Settings.unity
+    guid: 9ebf0fe2d94ba5a4b9d6b508feff1199
+  m_configObjects: {}
