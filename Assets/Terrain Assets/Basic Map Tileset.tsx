@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset version="1.2" tiledversion="1.3.3" name="Basic Map Tileset" tilewidth="32" tileheight="32" tilecount="20" columns="4">
- <image source="../../Downloads/Basic Map Tileset.png" width="128" height="160"/>
+ <image source="Basic Map Tileset.png" width="128" height="160"/>
  <tile id="0" type="Inner Ground">
   <objectgroup draworder="index" id="2">
    <object id="1" name="InnerGround" type="Solid" x="0" y="0" width="32" height="32"/>
