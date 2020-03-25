@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player_1_move : MonoBehaviour
 {
+    // Can we get some documentation please. It'll make things easier for the nonprogrammers.
     public GameObject chara;
     public int jumpforce;
     public float walkforce;
@@ -23,6 +24,12 @@ public class Player_1_move : MonoBehaviour
     void Update()
     {
         charnum = stat.GetComponent<Stats>().Player1.getChar();
+        if (Input.GetKey(KeyCode.S))
+		{
+            
+		}
+
+
         if (Input.GetKey(KeyCode.D))
         {
             chara.GetComponent<SpriteRenderer>().flipX = false;
@@ -60,6 +67,7 @@ public class Player_1_move : MonoBehaviour
                 plaSpecial();
             }
         }
+
     }
 
     public void plaSpecial()
