@@ -4,13 +4,26 @@ using UnityEngine;
 
 public class Stats : MonoBehaviour
 {
+    
+    public player Player1;
+    public player Player2;
+    public player Player3;
+    public player Player4;
     // Start is called before the first frame update
     void Start()
     {
-        player Player1 = new player(1, GameManager.Instance.pla1cha, GameManager.Instance.pla1ex);
-        player Player2 = new player(2, GameManager.Instance.pla2cha, GameManager.Instance.pla2ex);
-        player Player3 = new player(3, GameManager.Instance.pla3cha, GameManager.Instance.pla3ex);
-        player Player4 = new player(4, GameManager.Instance.pla4cha, GameManager.Instance.pla4ex);
+        int pla1ch = GameManager.Instance.pla1cha;
+        bool pla1e = GameManager.Instance.pla1ex;
+        int pla2ch = GameManager.Instance.pla2cha;
+        bool pla2e = GameManager.Instance.pla2ex;
+        int pla3ch = GameManager.Instance.pla3cha;
+        bool pla3e = GameManager.Instance.pla3ex;
+        int pla4ch = GameManager.Instance.pla4cha;
+        bool pla4e = GameManager.Instance.pla4ex;
+        Player1 = new player(1, pla1ch, pla1e);
+        Player2 = new player(2, pla2ch, pla2e);
+        Player3 = new player(3, pla3ch, pla3e);
+        Player4 = new player(4, pla4ch, pla4e);
     }
 
     // Update is called once per frame
@@ -20,7 +33,7 @@ public class Stats : MonoBehaviour
     }
 }
 
-class player
+public class player
 {
     public int num;
     public int character;
@@ -55,4 +68,10 @@ class player
     {
         souls += soul;
     }
+
+    public int getChar()
+    {
+        return character;
+    }
+
 }
