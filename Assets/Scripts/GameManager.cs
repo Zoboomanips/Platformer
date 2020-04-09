@@ -6,7 +6,7 @@ public class GameManager : Singleton<GameManager>
 {
     protected GameManager() { }
 
-    public int pla1cha = 1;
+    public int pla1cha = 2;
     public int pla2cha = 2;
     public int pla3cha = 3;
     public int pla4cha = 4;

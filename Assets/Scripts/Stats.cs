@@ -9,6 +9,11 @@ public class Stats : MonoBehaviour
     public player Player2;
     public player Player3;
     public player Player4;
+    public GameObject p1;
+    public GameObject p2;
+    public GameObject p3;
+    public GameObject p4;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +34,19 @@ public class Stats : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Player1.health <= 0)
+        {
+            p1.GetComponent<Player_1_move>().Death(Player1.souls - (int)Mathf.Floor(Player1.souls / 2) + 1);
+            Player1.health = 100;
+            Player1.souls = (int)Mathf.Floor(Player1.souls / 2) + 1;
+        }
+        else if (Player2.health <= 0)
+        {
+            p2.GetComponent<Player_2_input>().Death(Player2.souls - (int)Mathf.Floor(Player2.souls / 2) + 1);
+            Player2.health = 100;
+            Player2.souls = (int)Mathf.Floor(Player2.souls / 2) + 1;
+        }
+
     }
 }
 
@@ -52,15 +69,15 @@ public class player
     public void hit(int val)
     {
         health = health - val;
-        if (health <= 0)
+        /*if (health <= 0)
         {
             death();
-        }
+        }*/
     }
 
     public void death()
     {
-        souls = (int) Mathf.Floor(souls/2) + 1;
+        souls = (int)Mathf.Floor(souls / 2) + 1;
         health = 100;
     }
 

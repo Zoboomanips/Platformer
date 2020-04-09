@@ -13,6 +13,8 @@ public class Player_1_move : MonoBehaviour
     private int charnum;
     private bool seqst;
     private bool spec = false;
+    public GameObject soul;
+    private bool jum = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -22,6 +24,10 @@ public class Player_1_move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+        {
+            jum = false;
+        }
         charnum = stat.GetComponent<Stats>().Player1.getChar();
         if (Input.GetKey(KeyCode.D))
         {
@@ -30,14 +36,18 @@ public class Player_1_move : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.A))
         {
-            chara.GetComponent<SpriteRenderer>().flipX = true; 
+            chara.GetComponent<SpriteRenderer>().flipX = true;
             chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x - walkforce, chara.GetComponent<Rigidbody2D>().position.y);
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
-            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 || jum == true)
             {
                 chara.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpforce);
+                if (jum == true)
+                    jum = false;
+                else
+                    jum = true;
             }
         }
         if (Input.GetKeyDown(KeyCode.Q))
@@ -45,7 +55,7 @@ public class Player_1_move : MonoBehaviour
             chara.GetComponent<Character_actions>().shield();
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKey(KeyCode.E))
         {
             if (!attacking)
             {
@@ -53,7 +63,7 @@ public class Player_1_move : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.X))
+        if (Input.GetKey(KeyCode.X))
         {
             if (!spec)
             {
@@ -62,11 +72,23 @@ public class Player_1_move : MonoBehaviour
         }
     }
 
+    public void Death(int soulNum)
+    {
+        for (int i = 0; i < soulNum; i++)
+        {
+            Instantiate(soul, chara.GetComponent<Rigidbody2D>().transform.position, chara.GetComponent<Rigidbody2D>().transform.rotation);
+        }
+        chara.GetComponent<SpriteRenderer>().enabled = false;
+        StartCoroutine(AttWait(3.0f));
+        chara.transform.position = new Vector3(-2.5f, -1.8f, 0);
+        chara.GetComponent<SpriteRenderer>().enabled = true;
+    }
+
     public void plaSpecial()
     {
         if (charnum == 1)
         {
-            chara.GetComponent<Character_actions>().special1();
+            chara.GetComponent<Character_actions>().special2();
             StartCoroutine(SpecWait(5f));
         }
         else if (charnum == 2)
@@ -103,7 +125,7 @@ public class Player_1_move : MonoBehaviour
         }
         if(charnum == 1)
         {
-            chara.GetComponent<Character_actions>().attack1(attseq);
+            chara.GetComponent<Character_actions>().attack2(attseq);
             StartCoroutine(AttWait(.5f));
         }
         else if (charnum == 2)

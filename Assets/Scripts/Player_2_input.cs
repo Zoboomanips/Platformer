@@ -13,6 +13,8 @@ public class Player_2_input : MonoBehaviour
     private int charaNum;
     private bool seqStart;
     private bool spec = false;
+    public GameObject soul;
+    private bool jum = false;
 
     // Start is called before the first frame update
     void Start()
@@ -23,6 +25,10 @@ public class Player_2_input : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+        {
+            jum = false;
+        }
         charaNum = stat.GetComponent<Stats>().Player2.character;
 
         // move right
@@ -42,14 +48,18 @@ public class Player_2_input : MonoBehaviour
         // jump
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 || jum == true)
             {
                 chara.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce);
+                if (jum == true)
+                    jum = false;
+                else
+                    jum = true;
             }
         }
 
         // shield
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKey(KeyCode.Return))
         {
             chara.GetComponent<Character_actions>().shield();
         }
@@ -72,6 +82,18 @@ public class Player_2_input : MonoBehaviour
                 plaSpecial();
             }
         }
+    }
+
+    public void Death(int soulNum)
+    {
+        for (int i = 0; i < soulNum; i++)
+        {
+            Instantiate(soul, chara.GetComponent<Rigidbody2D>().transform.position, chara.GetComponent<Rigidbody2D>().transform.rotation);
+        }
+        chara.GetComponent<SpriteRenderer>().enabled = false;
+        StartCoroutine(AttWait(3.0f));
+        chara.transform.position = new Vector3(2.5f, -1.8f, 0);
+        chara.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public void plaSpecial()
@@ -108,36 +130,38 @@ public class Player_2_input : MonoBehaviour
             seqStart = true;
             FirstWait(4f);
         }
-
-        // Get player attack based on player character
-        if (charaNum == 1)
+        if (!attacking)
         {
-            chara.GetComponent<Character_actions>().attack1(attSeq);
-            StartCoroutine(AttWait(0.05f));
-        }
-        if (charaNum == 2)
-        {
-            chara.GetComponent<Character_actions>().attack2(attSeq);
-            StartCoroutine(AttWait(0.05f));
+            // Get player attack based on player character
+            if (charaNum == 1)
+            {
+                chara.GetComponent<Character_actions>().attack1(attSeq);
+                StartCoroutine(AttWait(0.5f));
+            }
+            if (charaNum == 2)
+            {
+                chara.GetComponent<Character_actions>().attack2(attSeq);
+                StartCoroutine(AttWait(0.5f));
 
-        }
-        if (charaNum == 3)
-        {
-            chara.GetComponent<Character_actions>().attack3(attSeq);
-            StartCoroutine(AttWait(0.05f));
+            }
+            if (charaNum == 3)
+            {
+                chara.GetComponent<Character_actions>().attack3(attSeq);
+                StartCoroutine(AttWait(0.5f));
 
-        }
-        if (charaNum == 4)
-        {
-            chara.GetComponent<Character_actions>().attack4(attSeq);
-            StartCoroutine(AttWait(0.05f));
+            }
+            if (charaNum == 4)
+            {
+                chara.GetComponent<Character_actions>().attack4(attSeq);
+                StartCoroutine(AttWait(0.5f));
 
-        }
+            }
 
-        attSeq++;
-        if (attSeq == 5)
-        {
-            attSeq = 1;
+            attSeq++;
+            if (attSeq == 5)
+            {
+                attSeq = 1;
+            }
         }
     }
 
