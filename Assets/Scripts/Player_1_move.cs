@@ -15,10 +15,12 @@ public class Player_1_move : MonoBehaviour
     private bool spec = false;
     public GameObject soul;
     private bool jum = false;
+    Animator CharAni;
     // Start is called before the first frame update
     void Start()
     {
         //charnum = stat.GetComponent<Stats>().Player1.getChar();
+        CharAni = chara.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -33,11 +35,13 @@ public class Player_1_move : MonoBehaviour
         {
             chara.GetComponent<SpriteRenderer>().flipX = false;
             chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x + walkforce, chara.GetComponent<Rigidbody2D>().position.y);
+            CharAni.SetTrigger("Run");
         }
         if (Input.GetKey(KeyCode.A))
         {
             chara.GetComponent<SpriteRenderer>().flipX = true;
             chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x - walkforce, chara.GetComponent<Rigidbody2D>().position.y);
+            CharAni.SetTrigger("Run");
         }
         if (Input.GetKeyDown(KeyCode.W))
         {
