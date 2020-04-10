@@ -20,7 +20,7 @@ public class Dagger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = new Vector2((gameObject.transform.position.x + (dir * .1f)), gameObject.transform.position.y);
+        gameObject.transform.position = new Vector2((gameObject.transform.position.x + (dir * 0.1f)), gameObject.transform.position.y);
         if (gameObject.transform.position.x >= 5 || gameObject.transform.position.x <= -5)
         {
             DestroyObject(gameObject);
@@ -30,11 +30,11 @@ public class Dagger : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 1)
+        if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 1 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
         {
             coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
         }
-        else
+        if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 2 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
         {
             coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(30);
         }

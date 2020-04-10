@@ -18,12 +18,16 @@ public class Character_actions : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        def = false;
     }
 
     public void shield()
     {
         def = true;
+    }
+
+    public void stopShield()
+    {
+        def = false;
     }
 
     public void attack1(int seq)
@@ -42,26 +46,22 @@ public class Character_actions : MonoBehaviour
         {
             if (gameObject.GetComponent<SpriteRenderer>().flipX)
             {
-                Instantiate(dag, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = true;
+                StartCoroutine(Att(.2f, true));
             }
             else
             {
-                Instantiate(dag, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation);
+                StartCoroutine(Att(.2f, false));
             }
         } 
         else
         {
             if (gameObject.GetComponent<SpriteRenderer>().flipX)
             {
-                Instantiate(dag, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = true;
-                StartCoroutine(Wait(.1f));
-                Instantiate(dag, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = true;
+                StartCoroutine(Att4(.2f, true));
             }
             else
             {
-                Instantiate(dag, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation);
-                StartCoroutine(Wait(.1f));
-                Instantiate(dag, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation);
+                StartCoroutine(Att4(.2f, false));
             }
         }
     }
@@ -99,5 +99,18 @@ public class Character_actions : MonoBehaviour
     IEnumerator Wait(float sec)
     {
         yield return new WaitForSeconds(sec);
+    }
+
+    IEnumerator Att(float sec, bool flip)
+    {
+        yield return new WaitForSeconds(sec);
+        Instantiate(dag, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
+    }
+
+    IEnumerator Att4(float sec, bool flip)
+    {
+        yield return new WaitForSeconds(sec);
+        Instantiate(dag, new Vector3(gameObject.GetComponent<Rigidbody2D>().transform.position.x, gameObject.GetComponent<Rigidbody2D>().transform.position.y), gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
+        Instantiate(dag, new Vector3(gameObject.GetComponent<Rigidbody2D>().transform.position.x, gameObject.GetComponent<Rigidbody2D>().transform.position.y + 0.1f), gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
     }
 }

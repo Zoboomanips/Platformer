@@ -58,10 +58,16 @@ public class Player_2_input : MonoBehaviour
             }
         }
 
-        // shield
+        // when player presses shield button
         if (Input.GetKey(KeyCode.Return))
         {
             chara.GetComponent<Character_actions>().shield();
+        }
+        
+        // When player releases shield button
+        if (Input.GetKeyUp(KeyCode.Return))
+        {
+            chara.GetComponent<Character_actions>().stopShield();
         }
 
         // basic attack
