@@ -5,7 +5,7 @@ using UnityEngine;
 public class Player_1_move : MonoBehaviour
 {
     public GameObject chara;
-    public int jumpforce;
+    public float jumpforce;
     public float walkforce;
     private bool attacking;
     private int attseq = 1;
@@ -15,8 +15,10 @@ public class Player_1_move : MonoBehaviour
     private bool spec = false;
     public GameObject soul;
     private bool jum = false;
-    public bool stunned = false;
     Animator CharAni;
+    private float prevVel;
+    public bool stunned = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -27,15 +29,15 @@ public class Player_1_move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+        if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 && prevVel == 0)
         {
             jum = false;
         }
+        prevVel = chara.GetComponent<Rigidbody2D>().velocity.y;
         charnum = stat.GetComponent<Stats>().Player1.getChar();
 
         if (!stunned)
         {
-            // Move right
             if (Input.GetKey(KeyCode.D))
             {
                 if (!Input.GetKey(KeyCode.Q))
@@ -94,7 +96,7 @@ public class Player_1_move : MonoBehaviour
             }
 
             // If not moving horizontally or vertically change to idle animation
-            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Q) || Input.GetKey(KeyCode.E)))
+            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Q)))
             {
                 CharAni.SetTrigger("Idle");
             }
@@ -104,17 +106,20 @@ public class Player_1_move : MonoBehaviour
             {
                 if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 || jum == true)
                 {
-                    chara.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpforce);
                     if (jum == true)
+                    {
                         jum = false;
+                    }
                     else
                         jum = true;
+                    chara.GetComponent<Rigidbody2D>().velocity = new Vector3(chara.GetComponent<Rigidbody2D>().velocity.x, jumpforce);
                 }
             }
 
             // Shield
             if (Input.GetKeyDown(KeyCode.Q))
             {
+                // TODO: Stop Character Movement, also can characters block?
                 chara.GetComponent<Character_actions>().shield();
                 CharAni.SetTrigger("Block");
                 CharAni.ResetTrigger("Idle");
@@ -129,6 +134,8 @@ public class Player_1_move : MonoBehaviour
             // Attack
             if (Input.GetKey(KeyCode.E))
             {
+                // TODO: How do we do animation? Do we need a script for each character?
+                // TODO: Also need to add an object for the projectiles
                 if (!attacking)
                 {
                     plaAttack();
@@ -153,9 +160,8 @@ public class Player_1_move : MonoBehaviour
             Instantiate(soul, chara.GetComponent<Rigidbody2D>().transform.position, chara.GetComponent<Rigidbody2D>().transform.rotation);
         }
         chara.GetComponent<SpriteRenderer>().enabled = false;
-        StartCoroutine(AttWait(3.0f));
+        StartCoroutine(DeathWait(2.0f));
         chara.transform.position = new Vector3(-2.5f, -1.8f, 0);
-        chara.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public void plaSpecial()
@@ -189,6 +195,12 @@ public class Player_1_move : MonoBehaviour
         spec = true;
         yield return new WaitForSeconds(sec);
         spec = false;
+    }
+
+    IEnumerator DeathWait(float sec)
+    {
+        yield return new WaitForSeconds(sec);
+        chara.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     public void plaAttack()

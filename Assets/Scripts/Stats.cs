@@ -77,7 +77,7 @@ public class player
 
     public void death()
     {
-        souls = (int)Mathf.Floor(souls / 2) + 1;
+        souls = (int)Mathf.Floor(souls / 2);
         health = 100;
     }
 

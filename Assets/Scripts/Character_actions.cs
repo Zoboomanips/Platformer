@@ -13,7 +13,7 @@ public class Character_actions : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -43,7 +43,7 @@ public class Character_actions : MonoBehaviour
 
     public void attack2(int seq)
     {
-        if(seq < 4)
+        if (seq < 4)
         {
             if (gameObject.GetComponent<SpriteRenderer>().flipX)
             {
@@ -53,7 +53,7 @@ public class Character_actions : MonoBehaviour
             {
                 StartCoroutine(Att(.2f, false));
             }
-        } 
+        }
         else
         {
             if (gameObject.GetComponent<SpriteRenderer>().flipX)
@@ -69,8 +69,10 @@ public class Character_actions : MonoBehaviour
 
     public void special2()
     {
-        if (gameObject.GetComponent<SpriteRenderer>().flipX) {
-            StartCoroutine(Spec(1f, true));        }
+        if (gameObject.GetComponent<SpriteRenderer>().flipX)
+        {
+            StartCoroutine(Spec(1f, true));
+        }
         else
         {
             StartCoroutine(Spec(1f, false));

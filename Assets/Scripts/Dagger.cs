@@ -24,7 +24,7 @@ public class Dagger : MonoBehaviour
         {
             DestroyObject(gameObject);
         }
-        
+
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -47,6 +47,5 @@ public class Dagger : MonoBehaviour
     }
 }
 
-// coll.collider.gameObject.GetComponent<Character_actions>().player.GetComponent<Player_1_move>.stunned = true;
 
 
