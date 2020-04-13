@@ -15,6 +15,7 @@ public class Player_2_input : MonoBehaviour
     private bool spec = false;
     public GameObject soul;
     private bool jum = false;
+    public bool stunned = false;
 
     // Start is called before the first frame update
     void Start()
@@ -31,61 +32,64 @@ public class Player_2_input : MonoBehaviour
         }
         charaNum = stat.GetComponent<Stats>().Player2.character;
 
-        // move right
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (!stunned)
         {
-            chara.GetComponent<SpriteRenderer>().flipX = false;
-            chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x + walkForce, chara.GetComponent<Rigidbody2D>().position.y);
-        }
-
-        // move left 
-        if (Input.GetKey(KeyCode.LeftArrow))
-        {
-            chara.GetComponent<SpriteRenderer>().flipX = true;
-            chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x - walkForce, chara.GetComponent<Rigidbody2D>().position.y);
-        }
-
-        // jump
-        if (Input.GetKeyDown(KeyCode.UpArrow))
-        {
-            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 || jum == true)
+            // move right
+            if (Input.GetKey(KeyCode.RightArrow))
             {
-                chara.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce);
-                if (jum == true)
-                    jum = false;
-                else
-                    jum = true;
-            }
-        }
-
-        // when player presses shield button
-        if (Input.GetKey(KeyCode.Return))
-        {
-            chara.GetComponent<Character_actions>().shield();
-        }
-        
-        // When player releases shield button
-        if (Input.GetKeyUp(KeyCode.Return))
-        {
-            chara.GetComponent<Character_actions>().stopShield();
-        }
-
-        // basic attack
-        if (Input.GetKey(KeyCode.RightControl))
-        {
-            if (!attacking)
-            {
-                plaAttack();
+                chara.GetComponent<SpriteRenderer>().flipX = false;
+                chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x + walkForce, chara.GetComponent<Rigidbody2D>().position.y);
             }
 
-        }
-
-        // special attack
-        if (Input.GetKey(KeyCode.RightShift))
-        {
-            if (!spec)
+            // move left 
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                plaSpecial();
+                chara.GetComponent<SpriteRenderer>().flipX = true;
+                chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x - walkForce, chara.GetComponent<Rigidbody2D>().position.y);
+            }
+
+            // jump
+            if (Input.GetKeyDown(KeyCode.UpArrow))
+            {
+                if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 || jum == true)
+                {
+                    chara.GetComponent<Rigidbody2D>().AddForce(Vector2.up * jumpForce);
+                    if (jum == true)
+                        jum = false;
+                    else
+                        jum = true;
+                }
+            }
+
+            // when player presses shield button
+            if (Input.GetKey(KeyCode.Return))
+            {
+                chara.GetComponent<Character_actions>().shield();
+            }
+
+            // When player releases shield button
+            if (Input.GetKeyUp(KeyCode.Return))
+            {
+                chara.GetComponent<Character_actions>().stopShield();
+            }
+
+            // basic attack
+            if (Input.GetKey(KeyCode.RightControl))
+            {
+                if (!attacking)
+                {
+                    plaAttack();
+                }
+
+            }
+
+            // special attack
+            if (Input.GetKey(KeyCode.RightShift))
+            {
+                if (!spec)
+                {
+                    plaSpecial();
+                }
             }
         }
     }

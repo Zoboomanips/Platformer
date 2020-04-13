@@ -8,6 +8,7 @@ public class Character_actions : MonoBehaviour
     public int pla;
     public bool def = false;
     public GameObject dag;
+    public GameObject stunDag;
     public GameObject stats;
     // Start is called before the first frame update
     void Start()
@@ -69,10 +70,10 @@ public class Character_actions : MonoBehaviour
     public void special2()
     {
         if (gameObject.GetComponent<SpriteRenderer>().flipX) {
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-400.0f, 0));
-        } else
+            StartCoroutine(Spec(1f, true));        }
+        else
         {
-            gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(400.0f, 0));
+            StartCoroutine(Spec(1f, false));
         }
     }
 
@@ -112,5 +113,11 @@ public class Character_actions : MonoBehaviour
         yield return new WaitForSeconds(sec);
         Instantiate(dag, new Vector3(gameObject.GetComponent<Rigidbody2D>().transform.position.x, gameObject.GetComponent<Rigidbody2D>().transform.position.y), gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
         Instantiate(dag, new Vector3(gameObject.GetComponent<Rigidbody2D>().transform.position.x, gameObject.GetComponent<Rigidbody2D>().transform.position.y + 0.1f), gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
+    }
+
+    IEnumerator Spec(float sec, bool flip)
+    {
+        yield return new WaitForSeconds(sec);
+        Instantiate(stunDag, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
     }
 }

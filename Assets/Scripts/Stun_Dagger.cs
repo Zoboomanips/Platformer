@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dagger : MonoBehaviour
+public class Stun_Dagger : MonoBehaviour
 {
     public float dir;
+    private bool done = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,25 +20,31 @@ public class Dagger : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.transform.position = new Vector2((gameObject.transform.position.x + (dir * 0.1f)), gameObject.transform.position.y);
+        if (!done)
+        {
+            gameObject.transform.position = new Vector2((gameObject.transform.position.x + (dir * 0.1f)), gameObject.transform.position.y);
+        }
         if (gameObject.transform.position.x >= 5 || gameObject.transform.position.x <= -5)
         {
             DestroyObject(gameObject);
         }
-        
+
     }
 
     void OnCollisionEnter2D(Collision2D coll)
     {
         if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 1 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
         {
-            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(10);
+            coll.collider.gameObject.GetComponent<Character_actions>().player.GetComponent<Player_1_move>().stunned = true;
         }
         if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 2 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
         {
-            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(30);
+            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(10);
+            coll.collider.gameObject.GetComponent<Character_actions>().player.GetComponent<Player_2_input>().stunned = true;
+            StartCoroutine(StunWait(1f, coll.collider.gameObject.GetComponent<Character_actions>().player));
         }
-        DestroyObject(gameObject);
+        done = true;
     }
 
     IEnumerator Wait(float sec)
@@ -45,8 +52,11 @@ public class Dagger : MonoBehaviour
         yield return new WaitForSeconds(sec);
         gameObject.GetComponent<BoxCollider2D>().enabled = true;
     }
+
+    IEnumerator StunWait(float sec, GameObject player)
+    {
+        yield return new WaitForSeconds(sec);
+        player.GetComponent<Player_2_input>().stunned = false;
+        DestroyObject(gameObject);
+    }
 }
-
-// coll.collider.gameObject.GetComponent<Character_actions>().player.GetComponent<Player_1_move>.stunned = true;
-
-

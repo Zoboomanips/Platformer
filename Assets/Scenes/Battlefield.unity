@@ -288,6 +288,7 @@ MonoBehaviour:
   pla: 1
   def: 0
   dag: {fileID: 2310834881232409534, guid: 721dde6793e8f8f43a3d91adcfebfc31, type: 3}
+  stunDag: {fileID: 6731622477633872336, guid: 3648d57f734691846b1073019f807f22, type: 3}
   stats: {fileID: 1074377668}
 --- !u!1 &365147876
 GameObject:
@@ -323,6 +324,7 @@ MonoBehaviour:
   walkForce: 0.05
   stat: {fileID: 1074377668}
   soul: {fileID: 7660847705213712133, guid: 8d999e8565424c6438358d640cee4887, type: 3}
+  stunned: 0
 --- !u!4 &365147878
 Transform:
   m_ObjectHideFlags: 0
@@ -371,6 +373,7 @@ MonoBehaviour:
   walkforce: 0.05
   stat: {fileID: 1074377668}
   soul: {fileID: 7660847705213712133, guid: 8d999e8565424c6438358d640cee4887, type: 3}
+  stunned: 0
 --- !u!4 &1028419475
 Transform:
   m_ObjectHideFlags: 0
@@ -560,10 +563,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d34d1d4cdd06b41a733d6a9cc4bf08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 1028419473}
+  player: {fileID: 365147876}
   pla: 2
   def: 0
   dag: {fileID: 2310834881232409534, guid: 721dde6793e8f8f43a3d91adcfebfc31, type: 3}
+  stunDag: {fileID: 6731622477633872336, guid: 3648d57f734691846b1073019f807f22, type: 3}
   stats: {fileID: 1074377668}
 --- !u!50 &1535236722
 Rigidbody2D:
