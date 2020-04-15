@@ -6,22 +6,24 @@ public class Player_2_input : MonoBehaviour
 {
     public GameObject chara;
     public float jumpforce;
-    public float walkForce;
+    public float walkforce;
     private bool attacking;
-    private int attSeq = 1;
+    private int attseq = 1;
     public GameObject stat;
-    private int charaNum;
-    private bool seqStart;
+    private int charnum;
+    private bool seqst;
     private bool spec = false;
     public GameObject soul;
     private bool jum = false;
+    Animator CharAni;
     private float prevVel;
     public bool stunned = false;
 
     // Start is called before the first frame update
     void Start()
     {
-
+        //charnum = stat.GetComponent<Stats>().Player1.getChar();
+        CharAni = chara.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -32,26 +34,75 @@ public class Player_2_input : MonoBehaviour
             jum = false;
         }
         prevVel = chara.GetComponent<Rigidbody2D>().velocity.y;
-        charaNum = stat.GetComponent<Stats>().Player2.character;
+        charnum = stat.GetComponent<Stats>().Player1.getChar();
 
         if (!stunned)
         {
-            // move right
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.L))
             {
-                chara.GetComponent<SpriteRenderer>().flipX = false;
-                chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x + walkForce, chara.GetComponent<Rigidbody2D>().position.y);
+                if (!Input.GetKey(KeyCode.U))
+                {
+                    chara.GetComponent<SpriteRenderer>().flipX = false;
+                    chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x + walkforce, chara.GetComponent<Rigidbody2D>().position.y);
+                    if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+                    {
+                        CharAni.SetTrigger("Run");
+                    }
+                }
+                else
+                {
+                    CharAni.ResetTrigger("Run");
+                    CharAni.SetTrigger("Block");
+                }
             }
 
-            // move left 
-            if (Input.GetKey(KeyCode.LeftArrow))
+            // Move left
+            if (Input.GetKey(KeyCode.J))
             {
-                chara.GetComponent<SpriteRenderer>().flipX = true;
-                chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x - walkForce, chara.GetComponent<Rigidbody2D>().position.y);
+                if (!Input.GetKey(KeyCode.U))
+                {
+                    chara.GetComponent<SpriteRenderer>().flipX = true;
+                    chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x - walkforce, chara.GetComponent<Rigidbody2D>().position.y);
+                    if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+                    {
+                        CharAni.SetTrigger("Run");
+                    }
+                }
+                else
+                {
+                    CharAni.ResetTrigger("Run");
+                    CharAni.SetTrigger("Block");
+                }
+
             }
 
-            // jump
-            if (Input.GetKeyDown(KeyCode.UpArrow))
+            // If not moving change animation to idle
+            if (Input.GetKeyUp(KeyCode.L) || Input.GetKeyUp(KeyCode.J))
+            {
+                CharAni.SetTrigger("Idle");
+                CharAni.ResetTrigger("Run");
+            }
+
+            // If moving up change to jump up animation
+            if (chara.GetComponent<Rigidbody2D>().velocity.y > 0)
+            {
+                CharAni.SetTrigger("Jump Up");
+            }
+
+            // If falling down change to fall down animation
+            if (chara.GetComponent<Rigidbody2D>().velocity.y < 0)
+            {
+                CharAni.SetTrigger("Jump Down");
+            }
+
+            // If not moving horizontally or vertically change to idle animation
+            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 && !(Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.L) || Input.GetKey(KeyCode.U)))
+            {
+                CharAni.SetTrigger("Idle");
+            }
+
+            // Jump
+            if (Input.GetKeyDown(KeyCode.I))
             {
                 if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 || jum == true)
                 {
@@ -64,30 +115,35 @@ public class Player_2_input : MonoBehaviour
                     chara.GetComponent<Rigidbody2D>().velocity = new Vector3(chara.GetComponent<Rigidbody2D>().velocity.x, jumpforce);
                 }
             }
-            // shield
-            if (Input.GetKey(KeyCode.Return))
+
+            // Shield
+            if (Input.GetKeyDown(KeyCode.U))
             {
+                // TODO: Stop Character Movement, also can characters block?
                 chara.GetComponent<Character_actions>().shield();
+                CharAni.SetTrigger("Block");
+                CharAni.ResetTrigger("Idle");
             }
 
             // When player releases shield button
-            if (Input.GetKeyUp(KeyCode.Return))
+            if (Input.GetKeyUp(KeyCode.U))
             {
                 chara.GetComponent<Character_actions>().stopShield();
             }
 
-            // basic attack
-            if (Input.GetKey(KeyCode.RightControl))
+            // Attack
+            if (Input.GetKey(KeyCode.O))
             {
+                // TODO: How do we do animation? Do we need a script for each character?
+                // TODO: Also need to add an object for the projectiles
                 if (!attacking)
                 {
                     plaAttack();
                 }
-
             }
 
-            // special attack
-            if (Input.GetKey(KeyCode.RightShift))
+            // Special
+            if (Input.GetKey(KeyCode.P))
             {
                 if (!spec)
                 {
@@ -108,80 +164,93 @@ public class Player_2_input : MonoBehaviour
         chara.transform.position = new Vector3(2.5f, -1.8f, 0);
     }
 
+    public void plaSpecial()
+    {
+        if (charnum == 1)
+        {
+            CharAni.SetTrigger("Special");
+            chara.GetComponent<Character_actions>().special2();
+            StartCoroutine(SpecWait(5f));
+        }
+        else if (charnum == 2)
+        {
+            chara.GetComponent<Character_actions>().special2();
+            StartCoroutine(SpecWait(5f));
+        }
+        else if (charnum == 3)
+        {
+            chara.GetComponent<Character_actions>().special3();
+            StartCoroutine(SpecWait(5f));
+        }
+        else if (charnum == 4)
+        {
+            chara.GetComponent<Character_actions>().special4();
+            StartCoroutine(SpecWait(5f));
+        }
+    }
+
+
+    IEnumerator SpecWait(float sec)
+    {
+        spec = true;
+        yield return new WaitForSeconds(sec);
+        spec = false;
+    }
+
     IEnumerator DeathWait(float sec)
     {
         yield return new WaitForSeconds(sec);
         chara.GetComponent<SpriteRenderer>().enabled = true;
     }
 
-    public void plaSpecial()
-    {
-        // Get player attack based on player character
-        if (charaNum == 1)
-        {
-            chara.GetComponent<Character_actions>().special1();
-            StartCoroutine(SpecWait(5f));
-        }
-        if (charaNum == 2)
-        {
-            chara.GetComponent<Character_actions>().special2();
-            StartCoroutine(SpecWait(5f));
-
-        }
-        if (charaNum == 3)
-        {
-            chara.GetComponent<Character_actions>().special2();
-            StartCoroutine(SpecWait(5f));
-
-        }
-        if (charaNum == 4)
-        {
-            chara.GetComponent<Character_actions>().special2();
-            StartCoroutine(SpecWait(5f));
-        }
-    }
-
     public void plaAttack()
     {
-        if (attSeq == 1)
+        if (attseq == 1)
         {
-            seqStart = true;
+            CharAni.SetTrigger("Attack 1");
+            seqst = true;
             FirstWait(4f);
         }
-        if (!attacking)
+        if (attseq == 2)
         {
-            // Get player attack based on player character
-            if (charaNum == 1)
-            {
-                chara.GetComponent<Character_actions>().attack1(attSeq);
-                StartCoroutine(AttWait(0.5f));
-            }
-            if (charaNum == 2)
-            {
-                chara.GetComponent<Character_actions>().attack2(attSeq);
-                StartCoroutine(AttWait(0.5f));
-
-            }
-            if (charaNum == 3)
-            {
-                chara.GetComponent<Character_actions>().attack3(attSeq);
-                StartCoroutine(AttWait(0.5f));
-
-            }
-            if (charaNum == 4)
-            {
-                chara.GetComponent<Character_actions>().attack4(attSeq);
-                StartCoroutine(AttWait(0.5f));
-
-            }
-
-            attSeq++;
-            if (attSeq == 5)
-            {
-                attSeq = 1;
-            }
+            CharAni.SetTrigger("Attack 2");
+        }
+        if (attseq == 3)
+        {
+            CharAni.SetTrigger("Attack 3");
+        }
+        if (attseq == 4)
+        {
+            CharAni.SetTrigger("Attack 4");
+        }
+        if (charnum == 1)
+        {
+            chara.GetComponent<Character_actions>().attack2(attseq);
+            StartCoroutine(AttWait(.5f));
+        }
+        else if (charnum == 2)
+        {
+            chara.GetComponent<Character_actions>().attack2(attseq);
+            StartCoroutine(AttWait(.5f));
+        }
+        else if (charnum == 3)
+        {
+            chara.GetComponent<Character_actions>().attack3(attseq);
+            StartCoroutine(AttWait(.5f));
+        }
+        else if (charnum == 4)
+        {
+            chara.GetComponent<Character_actions>().attack4(attseq);
+            StartCoroutine(AttWait(.5f));
+        }
+        attseq++;
+        if (attseq == 5)
+        {
+            attseq = 1;
+            seqst = false;
         }
     }
+
 
     IEnumerator AttWait(float sec)
     {
@@ -193,14 +262,7 @@ public class Player_2_input : MonoBehaviour
     IEnumerator FirstWait(float sec)
     {
         yield return new WaitForSeconds(sec);
-        seqStart = false;
-        attSeq = 1;
-    }
-
-    IEnumerator SpecWait(float sec)
-    {
-        spec = true;
-        yield return new WaitForSeconds(sec);
-        spec = false;
+        seqst = false;
+        attseq = 1;
     }
 }

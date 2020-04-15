@@ -16,4 +16,8 @@ public class GameManager : Singleton<GameManager>
     public bool pla3ex = false;
     public bool pla4ex = false;
 
+    public bool pla1con = false;
+    public bool pla2con = false;
+
+    public float volume = 100;
 }

@@ -36,17 +36,20 @@ public class Stats : MonoBehaviour
     {
         if (Player1.health <= 0)
         {
-            p1.GetComponent<Player_1_move>().Death(Player1.souls - (int)Mathf.Floor(Player1.souls / 2) + 1);
+            p1.GetComponent<Player_1_move>().Death(Player1.souls - (int)Mathf.Floor(Player1.souls / 2));
             Player1.health = 100;
             Player1.souls = (int)Mathf.Floor(Player1.souls / 2) + 1;
         }
         else if (Player2.health <= 0)
         {
-            p2.GetComponent<Player_2_input>().Death(Player2.souls - (int)Mathf.Floor(Player2.souls / 2) + 1);
+            p2.GetComponent<Player_2_input>().Death(Player2.souls - (int)Mathf.Floor(Player2.souls / 2));
             Player2.health = 100;
             Player2.souls = (int)Mathf.Floor(Player2.souls / 2) + 1;
         }
-
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Application.Quit();
+        }
     }
 }
 

@@ -13,7 +13,7 @@ public class Dagger : MonoBehaviour
             dir = -1;
         else
             dir = 1;
-        StartCoroutine(Wait(.2f));
+        StartCoroutine(Wait(.1f));
     }
 
     // Update is called once per frame
