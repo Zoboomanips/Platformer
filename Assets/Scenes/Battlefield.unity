@@ -413,7 +413,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 365147876}
-  pla: 1
+  pla: 2
   def: 0
   dag: {fileID: 2310834881232409534, guid: 721dde6793e8f8f43a3d91adcfebfc31, type: 3}
   stunDag: {fileID: 6731622477633872336, guid: 3648d57f734691846b1073019f807f22, type: 3}
@@ -456,7 +456,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.63, y: 0.61}
+    oldSize: {x: 0.71, y: 0.6}
     newSize: {x: 0.41, y: 0.62}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
