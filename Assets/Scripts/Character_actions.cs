@@ -10,15 +10,22 @@ public class Character_actions : MonoBehaviour
     public GameObject dag;
     public GameObject stunDag;
     public GameObject stats;
+    private Color col;
     // Start is called before the first frame update
     void Start()
     {
-
+        col = gameObject.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame
     void Update()
     {
+    }
+
+    public void hit()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        StartCoroutine(back());
     }
 
     public void shield()
@@ -123,6 +130,12 @@ public class Character_actions : MonoBehaviour
     IEnumerator Wait(float sec)
     {
         yield return new WaitForSeconds(sec);
+    }
+
+    IEnumerator back()
+    {
+        yield return new WaitForSeconds(.2f);
+        gameObject.GetComponent<SpriteRenderer>().color = col;
     }
 
     IEnumerator Att2(float sec, bool flip)
