@@ -34,7 +34,7 @@ public class Player_2_input : MonoBehaviour
             jum = false;
         }
         prevVel = chara.GetComponent<Rigidbody2D>().velocity.y;
-        charnum = stat.GetComponent<Stats>().Player1.getChar();
+        charnum = stat.GetComponent<Stats>().Player2.getChar();
 
         if (!stunned)
         {

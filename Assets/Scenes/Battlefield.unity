@@ -615,7 +615,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 610183084}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 64441c70fe92d7344af814bc68c364d4, type: 3}
+  m_Script: {fileID: 11500000, guid: 6a043808047163f409374aa4cee45178, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   chara: {fileID: 1146356174}
@@ -675,6 +675,9 @@ MonoBehaviour:
   pla: 2
   def: 0
   dag: {fileID: 2310834881232409534, guid: 721dde6793e8f8f43a3d91adcfebfc31, type: 3}
+  fir: {fileID: 0}
+  fir4: {fileID: 0}
+  firCyc: {fileID: 0}
   stunDag: {fileID: 6731622477633872336, guid: 3648d57f734691846b1073019f807f22, type: 3}
   stats: {fileID: 1074377668}
 --- !u!50 &707792939
@@ -865,7 +868,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: cbb2bd930a3f1444d9170f012bffc488, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1d9f955fdc3447841a8743c44da8164b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -1100,6 +1103,9 @@ MonoBehaviour:
   pla: 3
   def: 0
   dag: {fileID: 2310834881232409534, guid: 721dde6793e8f8f43a3d91adcfebfc31, type: 3}
+  fir: {fileID: 2850038775573619956, guid: 3d47cd1dec393dd4d815d78f7f6caebd, type: 3}
+  fir4: {fileID: 3342917899057308816, guid: 5e85476eee335e4428f6f434be2d4e1f, type: 3}
+  firCyc: {fileID: 3932774608972092306, guid: 8568363ac44a8ac429fbc5901b6d74fc, type: 3}
   stunDag: {fileID: 6731622477633872336, guid: 3648d57f734691846b1073019f807f22, type: 3}
   stats: {fileID: 1074377668}
 --- !u!50 &1146356176

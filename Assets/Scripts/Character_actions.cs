@@ -8,6 +8,9 @@ public class Character_actions : MonoBehaviour
     public int pla;
     public bool def = false;
     public GameObject dag;
+    public GameObject fir;
+    public GameObject fir4;
+    public GameObject firCyc;
     public GameObject stunDag;
     public GameObject stats;
     private Color col;
@@ -109,12 +112,40 @@ public class Character_actions : MonoBehaviour
 
     public void attack3(int seq)
     {
-
+        if (seq < 4)
+        {
+            if (gameObject.GetComponent<SpriteRenderer>().flipX)
+            {
+                StartCoroutine(Att3(.2f, true));
+            }
+            else
+            {
+                StartCoroutine(Att3(.2f, false));
+            }
+        }
+        else
+        {
+            if (gameObject.GetComponent<SpriteRenderer>().flipX)
+            {
+                StartCoroutine(Att34(.2f, true));
+            }
+            else
+            {
+                StartCoroutine(Att34(.2f, false));
+            }
+        }
     }
 
     public void special3()
     {
-
+        if (gameObject.GetComponent<SpriteRenderer>().flipX)
+        {
+            StartCoroutine(Spec3(true));
+        }
+        else
+        {
+            StartCoroutine(Spec3(false));
+        }
     }
 
     public void attack4(int seq)
@@ -155,5 +186,23 @@ public class Character_actions : MonoBehaviour
     {
         yield return new WaitForSeconds(sec);
         Instantiate(stunDag, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
+    }
+
+    IEnumerator Att3(float sec, bool flip)
+    {
+        yield return new WaitForSeconds(sec);
+        Instantiate(fir, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
+    }
+
+    IEnumerator Att34(float sec, bool flip)
+    {
+        yield return new WaitForSeconds(sec);
+        Instantiate(fir4, new Vector3(gameObject.GetComponent<Rigidbody2D>().transform.position.x, gameObject.GetComponent<Rigidbody2D>().transform.position.y), gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
+    }
+
+    IEnumerator Spec3(bool flip)
+    {
+        yield return new WaitForSeconds(0);
+        Instantiate(firCyc, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
     }
 }

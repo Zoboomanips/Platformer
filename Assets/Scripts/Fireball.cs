@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Dagger : MonoBehaviour
+public class Fireball : MonoBehaviour
 {
     public float dir;
+    public int count = 0;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,9 +21,11 @@ public class Dagger : MonoBehaviour
     void Update()
     {
         gameObject.transform.position = new Vector2((gameObject.transform.position.x + (dir * 0.1f)), gameObject.transform.position.y);
-        if (gameObject.transform.position.x >= 5 || gameObject.transform.position.x <= -5)
+        count = count + 1;
+        if (count == 50)
         {
             DestroyObject(gameObject);
+            count = 0;
         }
 
     }
@@ -31,12 +34,12 @@ public class Dagger : MonoBehaviour
     {
         if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 1 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
         {
-            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(10);
+            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(20);
             coll.collider.gameObject.GetComponent<Character_actions>().hit();
         }
         if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 2 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
         {
-            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(10);
+            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(20);
             coll.collider.gameObject.GetComponent<Character_actions>().hit();
         }
         DestroyObject(gameObject);
