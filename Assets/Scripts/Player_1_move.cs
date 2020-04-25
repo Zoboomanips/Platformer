@@ -155,13 +155,14 @@ public class Player_1_move : MonoBehaviour
 
     public void Death(int soulNum)
     {
-        for (int i = 0; i < soulNum; i++)
-        {
-            Instantiate(soul, chara.GetComponent<Rigidbody2D>().transform.position, chara.GetComponent<Rigidbody2D>().transform.rotation);
-        }
+        Vector2 pos = chara.GetComponent<Rigidbody2D>().transform.position;
         chara.GetComponent<SpriteRenderer>().enabled = false;
         StartCoroutine(DeathWait(2.0f));
         chara.transform.position = new Vector3(-2.5f, -1.8f, 0);
+        for (int i = 0; i < soulNum; i++)
+        {
+            Instantiate(soul, pos, chara.GetComponent<Rigidbody2D>().transform.rotation);
+        }
     }
 
     public void plaSpecial()
