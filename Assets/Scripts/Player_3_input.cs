@@ -36,6 +36,11 @@ public class Player_3_input : MonoBehaviour
         prevVel = chara.GetComponent<Rigidbody2D>().velocity.y;
         charnum = stat.GetComponent<Stats>().Player3.getChar();
 
+        if (chara.transform.position.y < -7)
+        {
+            stat.GetComponent<Stats>().Player3.hit(100);
+        }
+
         if (!stunned)
         {
             if (Input.GetKey(KeyCode.L))
@@ -186,6 +191,7 @@ public class Player_3_input : MonoBehaviour
         }
         else if (charnum == 4)
         {
+            CharAni.SetTrigger("Special");
             chara.GetComponent<Character_actions>().special4();
             StartCoroutine(SpecWait(5f));
         }

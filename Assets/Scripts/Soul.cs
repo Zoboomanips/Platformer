@@ -13,7 +13,10 @@ public class Soul : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (gameObject.transform.position.y < -7)
+        {
+            DestroyObject(gameObject);
+        }
     }
 
     void OnCollisionEnter2D(Collision2D coll)

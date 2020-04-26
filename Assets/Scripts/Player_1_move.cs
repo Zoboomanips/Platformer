@@ -36,6 +36,11 @@ public class Player_1_move : MonoBehaviour
         prevVel = chara.GetComponent<Rigidbody2D>().velocity.y;
         charnum = stat.GetComponent<Stats>().Player1.getChar();
 
+        if (chara.transform.position.y < -7)
+        {
+            stat.GetComponent<Stats>().Player1.hit(100);
+        }
+
         if (!stunned)
         {
             if (Input.GetKey(KeyCode.D))
@@ -175,16 +180,19 @@ public class Player_1_move : MonoBehaviour
         }
         else if (charnum == 2)
         {
+            CharAni.SetTrigger("Special");
             chara.GetComponent<Character_actions>().special2();
             StartCoroutine(SpecWait(5f));
         }
         else if (charnum == 3)
         {
+            CharAni.SetTrigger("Special");
             chara.GetComponent<Character_actions>().special3();
             StartCoroutine(SpecWait(5f));
         }
         else if (charnum == 4)
         {
+            CharAni.SetTrigger("Special");
             chara.GetComponent<Character_actions>().special4();
             StartCoroutine(SpecWait(5f));
         }
