@@ -174,7 +174,7 @@ public class Player_3_input : MonoBehaviour
         if (charnum == 1)
         {
             CharAni.SetTrigger("Special");
-            chara.GetComponent<Character_actions>().special2();
+            chara.GetComponent<Character_actions>().special1();
             StartCoroutine(SpecWait(5f));
         }
         else if (charnum == 2)
@@ -233,7 +233,7 @@ public class Player_3_input : MonoBehaviour
         }
         if (charnum == 1)
         {
-            chara.GetComponent<Character_actions>().attack2(attseq);
+            chara.GetComponent<Character_actions>().attack1(attseq);
             StartCoroutine(AttWait(.5f));
         }
         else if (charnum == 2)
