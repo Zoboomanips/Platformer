@@ -17,7 +17,7 @@ public class Fire_Cyclone : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-      
+        gameObject.GetComponent<BoxCollider2D>().size = new Vector2(gameObject.GetComponent<BoxCollider2D>().size.x + .007f, gameObject.GetComponent<BoxCollider2D>().size.y + .007f); 
     }
 
     void OnCollisionEnter2D(Collision2D coll)
@@ -34,7 +34,6 @@ public class Fire_Cyclone : MonoBehaviour
                 coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(10);
                 coll.collider.gameObject.GetComponent<Character_actions>().hit();
             }
-            DestroyObject(gameObject);
         }
     }
 

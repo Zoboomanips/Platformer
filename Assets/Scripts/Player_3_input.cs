@@ -22,7 +22,6 @@ public class Player_3_input : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //charnum = stat.GetComponent<Stats>().Player1.getChar();
         CharAni = chara.GetComponent<Animator>();
     }
 
@@ -43,9 +42,9 @@ public class Player_3_input : MonoBehaviour
 
         if (!stunned)
         {
-            if (Input.GetKey(KeyCode.L))
+            if (Input.GetKey(KeyCode.LeftArrow))
             {
-                if (!Input.GetKey(KeyCode.U))
+                if (!Input.GetKey(KeyCode.LeftShift))
                 {
                     chara.GetComponent<SpriteRenderer>().flipX = false;
                     chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x + walkforce, chara.GetComponent<Rigidbody2D>().position.y);
@@ -62,9 +61,9 @@ public class Player_3_input : MonoBehaviour
             }
 
             // Move left
-            if (Input.GetKey(KeyCode.J))
+            if (Input.GetKey(KeyCode.RightArrow))
             {
-                if (!Input.GetKey(KeyCode.U))
+                if (!Input.GetKey(KeyCode.LeftShift))
                 {
                     chara.GetComponent<SpriteRenderer>().flipX = true;
                     chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x - walkforce, chara.GetComponent<Rigidbody2D>().position.y);
@@ -82,7 +81,7 @@ public class Player_3_input : MonoBehaviour
             }
 
             // If not moving change animation to idle
-            if (Input.GetKeyUp(KeyCode.L) || Input.GetKeyUp(KeyCode.J))
+            if (Input.GetKeyUp(KeyCode.LeftArrow) || Input.GetKeyUp(KeyCode.RightArrow))
             {
                 CharAni.SetTrigger("Idle");
                 CharAni.ResetTrigger("Run");
@@ -101,13 +100,13 @@ public class Player_3_input : MonoBehaviour
             }
 
             // If not moving horizontally or vertically change to idle animation
-            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 && !(Input.GetKey(KeyCode.J) || Input.GetKey(KeyCode.L) || Input.GetKey(KeyCode.U)))
+            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 && !(Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.LeftShift)))
             {
                 CharAni.SetTrigger("Idle");
             }
 
             // Jump
-            if (Input.GetKeyDown(KeyCode.I))
+            if (Input.GetKeyDown(KeyCode.UpArrow))
             {
                 if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 || jum == true)
                 {
@@ -122,25 +121,22 @@ public class Player_3_input : MonoBehaviour
             }
 
             // Shield
-            if (Input.GetKeyDown(KeyCode.U))
+            if (Input.GetKeyDown(KeyCode.LeftShift))
             {
-                // TODO: Stop Character Movement, also can characters block?
                 chara.GetComponent<Character_actions>().shield();
                 CharAni.SetTrigger("Block");
                 CharAni.ResetTrigger("Idle");
             }
 
             // When player releases shield button
-            if (Input.GetKeyUp(KeyCode.U))
+            if (Input.GetKeyUp(KeyCode.LeftShift))
             {
                 chara.GetComponent<Character_actions>().stopShield();
             }
 
             // Attack
-            if (Input.GetKey(KeyCode.O))
+            if (Input.GetKey(KeyCode.LeftControl))
             {
-                // TODO: How do we do animation? Do we need a script for each character?
-                // TODO: Also need to add an object for the projectiles
                 if (!attacking)
                 {
                     plaAttack();
@@ -148,7 +144,7 @@ public class Player_3_input : MonoBehaviour
             }
 
             // Special
-            if (Input.GetKey(KeyCode.P))
+            if (Input.GetKey(KeyCode.Return))
             {
                 if (!spec)
                 {
@@ -160,13 +156,14 @@ public class Player_3_input : MonoBehaviour
 
     public void Death(int soulNum)
     {
-        for (int i = 0; i < soulNum; i++)
-        {
-            Instantiate(soul, chara.GetComponent<Rigidbody2D>().transform.position, chara.GetComponent<Rigidbody2D>().transform.rotation);
-        }
+        Vector2 pos = chara.GetComponent<Rigidbody2D>().transform.position;
         chara.GetComponent<SpriteRenderer>().enabled = false;
         StartCoroutine(DeathWait(2.0f));
-        chara.transform.position = new Vector3(2.5f, -1.8f, 0);
+        chara.transform.position = new Vector3(0, 8f, 0);
+        for (int i = 0; i < soulNum; i++)
+        {
+            Instantiate(soul, pos, chara.GetComponent<Rigidbody2D>().transform.rotation);
+        }
     }
 
     public void plaSpecial()
@@ -208,6 +205,7 @@ public class Player_3_input : MonoBehaviour
     IEnumerator DeathWait(float sec)
     {
         yield return new WaitForSeconds(sec);
+        chara.transform.position = new Vector3(0, 2f, 0);
         chara.GetComponent<SpriteRenderer>().enabled = true;
     }
 

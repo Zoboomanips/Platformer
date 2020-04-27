@@ -494,7 +494,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   chara: {fileID: 1146356174}
   jumpforce: 9
-  walkforce: 0.05
+  walkforce: 0.06
   stat: {fileID: 1074377668}
   soul: {fileID: 7660847705213712133, guid: 8d999e8565424c6438358d640cee4887, type: 3}
   stunned: 0

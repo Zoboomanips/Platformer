@@ -163,7 +163,7 @@ public class Player_1_move : MonoBehaviour
         Vector2 pos = chara.GetComponent<Rigidbody2D>().transform.position;
         chara.GetComponent<SpriteRenderer>().enabled = false;
         StartCoroutine(DeathWait(2.0f));
-        chara.transform.position = new Vector3(-2.5f, -1.8f, 0);
+        chara.transform.position = new Vector3(-2.5f, 8f, 0);
         for (int i = 0; i < soulNum; i++)
         {
             Instantiate(soul, pos, chara.GetComponent<Rigidbody2D>().transform.rotation);
@@ -209,6 +209,7 @@ public class Player_1_move : MonoBehaviour
     IEnumerator DeathWait(float sec)
     {
         yield return new WaitForSeconds(sec);
+        chara.transform.position = new Vector3(-2.5f, -1.8f, 0);
         chara.GetComponent<SpriteRenderer>().enabled = true;
     }
 

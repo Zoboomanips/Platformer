@@ -22,7 +22,6 @@ public class Player_2_input : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //charnum = stat.GetComponent<Stats>().Player1.getChar();
         CharAni = chara.GetComponent<Animator>();
     }
 
@@ -124,7 +123,6 @@ public class Player_2_input : MonoBehaviour
             // Shield
             if (Input.GetKeyDown(KeyCode.U))
             {
-                // TODO: Stop Character Movement, also can characters block?
                 chara.GetComponent<Character_actions>().shield();
                 CharAni.SetTrigger("Block");
                 CharAni.ResetTrigger("Idle");
@@ -139,8 +137,6 @@ public class Player_2_input : MonoBehaviour
             // Attack
             if (Input.GetKey(KeyCode.O))
             {
-                // TODO: How do we do animation? Do we need a script for each character?
-                // TODO: Also need to add an object for the projectiles
                 if (!attacking)
                 {
                     plaAttack();
@@ -160,13 +156,14 @@ public class Player_2_input : MonoBehaviour
 
     public void Death(int soulNum)
     {
-        for (int i = 0; i < soulNum; i++)
-        {
-            Instantiate(soul, chara.GetComponent<Rigidbody2D>().transform.position, chara.GetComponent<Rigidbody2D>().transform.rotation);
-        }
+        Vector2 pos = chara.GetComponent<Rigidbody2D>().transform.position;
         chara.GetComponent<SpriteRenderer>().enabled = false;
         StartCoroutine(DeathWait(2.0f));
-        chara.transform.position = new Vector3(2.5f, -1.8f, 0);
+        chara.transform.position = new Vector3(2.5f, 8f, 0);
+        for (int i = 0; i < soulNum; i++)
+        {
+            Instantiate(soul, pos, chara.GetComponent<Rigidbody2D>().transform.rotation);
+        }
     }
 
     public void plaSpecial()
@@ -208,6 +205,7 @@ public class Player_2_input : MonoBehaviour
     IEnumerator DeathWait(float sec)
     {
         yield return new WaitForSeconds(sec);
+        chara.transform.position = new Vector3(2.5f, -1.8f, 0);
         chara.GetComponent<SpriteRenderer>().enabled = true;
     }
 
