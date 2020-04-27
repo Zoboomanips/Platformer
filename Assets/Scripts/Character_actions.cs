@@ -269,18 +269,24 @@ public class Character_actions : MonoBehaviour
     IEnumerator Att3(float sec, bool flip)
     {
         yield return new WaitForSeconds(sec);
-        Instantiate(fir, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
+        GameObject fire = Instantiate(fir, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation);
+        fire.GetComponent<Dagger>().pla = pla;
+        fire.GetComponent<SpriteRenderer>().flipX = flip;
     }
 
     IEnumerator Att34(float sec, bool flip)
     {
         yield return new WaitForSeconds(sec);
-        Instantiate(fir4, new Vector3(gameObject.GetComponent<Rigidbody2D>().transform.position.x, gameObject.GetComponent<Rigidbody2D>().transform.position.y), gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
+        GameObject fire = Instantiate(fir4, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation);
+        fire.GetComponent<Dagger>().pla = pla;
+        fire.GetComponent<SpriteRenderer>().flipX = flip;
     }
 
     IEnumerator Spec3(bool flip)
     {
         yield return new WaitForSeconds(0);
-        Instantiate(firCyc, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation).GetComponent<SpriteRenderer>().flipX = flip;
+        GameObject fire = Instantiate(firCyc, gameObject.GetComponent<Rigidbody2D>().transform.position, gameObject.GetComponent<Rigidbody2D>().transform.rotation);
+        fire.GetComponent<Dagger>().pla = pla;
+        fire.GetComponent<SpriteRenderer>().flipX = flip;
     }
 }

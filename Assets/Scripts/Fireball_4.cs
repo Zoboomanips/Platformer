@@ -5,6 +5,7 @@ using UnityEngine;
 public class Fireball_4 : MonoBehaviour
 {
     public float dir;
+    public int pla;
     // Start is called before the first frame update
     void Start()
     {
@@ -13,7 +14,7 @@ public class Fireball_4 : MonoBehaviour
             dir = -1;
         else
             dir = 1;
-        StartCoroutine(Wait(.1f));
+        StartCoroutine(Wait(.05f));
     }
 
     // Update is called once per frame
@@ -29,17 +30,20 @@ public class Fireball_4 : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D coll)
     {
-        if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 1 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
+        if (pla != coll.collider.gameObject.GetComponent<Character_actions>().pla)
         {
-            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
-            coll.collider.gameObject.GetComponent<Character_actions>().hit();
+            if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 1 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
+            {
+                coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                coll.collider.gameObject.GetComponent<Character_actions>().hit();
+            }
+            if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 2 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
+            {
+                coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(30);
+                coll.collider.gameObject.GetComponent<Character_actions>().hit();
+            }
+            DestroyObject(gameObject);
         }
-        if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 2 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
-        {
-            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(30);
-            coll.collider.gameObject.GetComponent<Character_actions>().hit();
-        }
-        DestroyObject(gameObject);
     }
 
     IEnumerator Wait(float sec)
