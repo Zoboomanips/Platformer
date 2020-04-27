@@ -34,6 +34,11 @@ public class Fire_Cyclone : MonoBehaviour
                 coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(10);
                 coll.collider.gameObject.GetComponent<Character_actions>().hit();
             }
+            if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 3 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
+            {
+                coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player3.hit(10);
+                coll.collider.gameObject.GetComponent<Character_actions>().hit();
+            }
         }
     }
 

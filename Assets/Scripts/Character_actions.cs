@@ -100,10 +100,33 @@ public class Character_actions : MonoBehaviour
                         pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(20);
                         pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().hit();
                     }
+                    if (pla3Pos.x >= pla1Pos.x && pla3Pos.x <= pla1Pos.x + .9 && pla3Pos.y <= pla1Pos.y + .5 && pla3Pos.y >= pla1Pos.y - .5)
+                    {
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player3.hit(20);
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().hit();
+                    }
                 }
                 else if (pla == 2)
                 {
                     if (pla1Pos.x >= pla2Pos.x && pla1Pos.x <= pla2Pos.x + .9 && pla1Pos.y <= pla2Pos.y + .5 && pla1Pos.y >= pla2Pos.y - .5)
+                    {
+                        pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(20);
+                        pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().hit();
+                    }
+                    if (pla3Pos.x >= pla2Pos.x && pla3Pos.x <= pla2Pos.x + .9 && pla3Pos.y <= pla2Pos.y + .5 && pla3Pos.y >= pla2Pos.y - .5)
+                    {
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player3.hit(20);
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().hit();
+                    }
+                }
+                else if (pla == 3)
+                {
+                    if (pla2Pos.x >= pla3Pos.x && pla2Pos.x <= pla3Pos.x + .9 && pla2Pos.y <= pla3Pos.y + .5 && pla2Pos.y >= pla3Pos.y - .5)
+                    {
+                        pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player2.hit(20);
+                        pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().hit();
+                    }
+                    if (pla1Pos.x >= pla3Pos.x && pla1Pos.x <= pla3Pos.x + .9 && pla1Pos.y <= pla3Pos.y + .5 && pla1Pos.y >= pla3Pos.y - .5)
                     {
                         pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(20);
                         pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().hit();
@@ -117,11 +140,43 @@ public class Character_actions : MonoBehaviour
             {
                 if (pla == 1)
                 {
-
+                    if (pla2Pos.x <= pla1Pos.x && pla2Pos.x >= pla1Pos.x - 1.4 && pla2Pos.y <= pla1Pos.y + .5 && pla2Pos.y >= pla1Pos.y - .5)
+                    {
+                        pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                        pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().hit();
+                        StartCoroutine(pull(1, pla2.GetComponent<Player_2_input>().chara));
+                    }
+                    if (pla3Pos.x <= pla1Pos.x && pla3Pos.x >= pla1Pos.x - 1.4 && pla3Pos.y <= pla1Pos.y + .5 && pla3Pos.y >= pla1Pos.y - .5)
+                    {
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().hit();
+                        StartCoroutine(pull(1, pla3.GetComponent<Player_3_input>().chara));
+                    }
                 }
                 else if (pla == 2)
                 {
                     if (pla1Pos.x <= pla2Pos.x && pla1Pos.x >= pla2Pos.x - 1.4 && pla1Pos.y <= pla2Pos.y + .5 && pla1Pos.y >= pla2Pos.y - .5)
+                    {
+                        pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                        pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().hit();
+                        StartCoroutine(pull(1, pla1.GetComponent<Player_1_move>().chara));
+                    }
+                    if (pla3Pos.x <= pla2Pos.x && pla3Pos.x >= pla2Pos.x - 1.4 && pla3Pos.y <= pla2Pos.y + .5 && pla3Pos.y >= pla2Pos.y - .5)
+                    {
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().hit();
+                        StartCoroutine(pull(1, pla3.GetComponent<Player_3_input>().chara));
+                    }
+                }
+                else if (pla == 3)
+                {
+                    if (pla2Pos.x <= pla3Pos.x && pla2Pos.x >= pla3Pos.x - 1.4 && pla2Pos.y <= pla3Pos.y + .5 && pla2Pos.y >= pla3Pos.y - .5)
+                    {
+                        pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                        pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().hit();
+                        StartCoroutine(pull(1, pla2.GetComponent<Player_2_input>().chara));
+                    }
+                    if (pla1Pos.x <= pla3Pos.x && pla1Pos.x >= pla3Pos.x - 1.4 && pla1Pos.y <= pla3Pos.y + .5 && pla1Pos.y >= pla3Pos.y - .5)
                     {
                         pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
                         pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().hit();
@@ -133,11 +188,43 @@ public class Character_actions : MonoBehaviour
             {
                 if (pla == 1)
                 {
-
+                    if (pla2Pos.x >= pla1Pos.x && pla2Pos.x <= pla1Pos.x + 1.4 && pla2Pos.y <= pla1Pos.y + .5 && pla2Pos.y >= pla1Pos.y - .5)
+                    {
+                        pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                        pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().hit();
+                        StartCoroutine(pull(-1, pla2.GetComponent<Player_2_input>().chara));
+                    }
+                    if (pla3Pos.x >= pla1Pos.x && pla3Pos.x <= pla1Pos.x + 1.4 && pla3Pos.y <= pla1Pos.y + .5 && pla3Pos.y >= pla1Pos.y - .5)
+                    {
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().hit();
+                        StartCoroutine(pull(-1, pla3.GetComponent<Player_3_input>().chara));
+                    }
                 }
                 else if (pla == 2)
                 {
                     if (pla1Pos.x >= pla2Pos.x && pla1Pos.x <= pla2Pos.x + 1.4 && pla1Pos.y <= pla2Pos.y + .5 && pla1Pos.y >= pla2Pos.y - .5)
+                    {
+                        pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                        pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().hit();
+                        StartCoroutine(pull(-1, pla1.GetComponent<Player_1_move>().chara));
+                    }
+                    if (pla3Pos.x >= pla2Pos.x && pla3Pos.x <= pla2Pos.x + 1.4 && pla3Pos.y <= pla2Pos.y + .5 && pla3Pos.y >= pla2Pos.y - .5)
+                    {
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                        pla3.GetComponent<Player_3_input>().chara.GetComponent<Character_actions>().hit();
+                        StartCoroutine(pull(-1, pla3.GetComponent<Player_3_input>().chara));
+                    }
+                }
+                else if (pla == 3)
+                {
+                    if (pla2Pos.x >= pla3Pos.x && pla2Pos.x <= pla3Pos.x + 1.4 && pla2Pos.y <= pla3Pos.y + .5 && pla2Pos.y >= pla3Pos.y - .5)
+                    {
+                        pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
+                        pla2.GetComponent<Player_2_input>().chara.GetComponent<Character_actions>().hit();
+                        StartCoroutine(pull(-1, pla2.GetComponent<Player_2_input>().chara));
+                    }
+                    if (pla1Pos.x >= pla3Pos.x && pla1Pos.x <= pla3Pos.x + 1.4 && pla1Pos.y <= pla3Pos.y + .5 && pla1Pos.y >= pla3Pos.y - .5)
                     {
                         pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player1.hit(30);
                         pla1.GetComponent<Player_1_move>().chara.GetComponent<Character_actions>().hit();
