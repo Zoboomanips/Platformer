@@ -21,7 +21,7 @@ public class Fireball_4 : MonoBehaviour
     void Update()
     {
         gameObject.transform.position = new Vector2((gameObject.transform.position.x + (dir * 0.1f)), gameObject.transform.position.y);
-        if (gameObject.transform.position.x >= 5 || gameObject.transform.position.x <= -5)
+        if (gameObject.transform.position.x >= 7.5 || gameObject.transform.position.x <= -7.5)
         {
             DestroyObject(gameObject);
         }

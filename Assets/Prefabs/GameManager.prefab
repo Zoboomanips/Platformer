@@ -46,8 +46,10 @@ MonoBehaviour:
   pla1cha: 1
   pla2cha: 2
   pla3cha: 3
-  pla4cha: 4
   pla1ex: 1
   pla2ex: 1
-  pla3ex: 0
-  pla4ex: 0
+  pla3ex: 1
+  pla1con: 0
+  pla2con: 0
+  pla3con: 0
+  volume: 100

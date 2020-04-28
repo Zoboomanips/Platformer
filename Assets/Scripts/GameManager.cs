@@ -2,22 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameManager : Singleton<GameManager>
+public class GameManager : MonoBehaviour
 {
-    protected GameManager() { }
+    private static GameManager _instance;
 
-    public int pla1cha = 2;
+    public static GameManager Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<GameManager>();
+            }
+
+            return _instance;
+        }
+    }
+
+    public int pla1cha = 1;
     public int pla2cha = 1;
-    public int pla3cha = 3;
-    public int pla4cha = 4;
+    public int pla3cha = 1;
 
     public bool pla1ex = true;
     public bool pla2ex = true;
-    public bool pla3ex = false;
-    public bool pla4ex = false;
+    public bool pla3ex = true;
 
     public bool pla1con = false;
     public bool pla2con = false;
+    public bool pla3con = false;
 
-    public float volume = 100;
+    public float volume = 50;
+
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 }
+
+

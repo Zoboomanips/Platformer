@@ -98,6 +98,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   dir: 0
   pla: 0
+  sound: {fileID: 1925143223398914618, guid: 5a4421c2d0c86f04e8f607228cb906fe, type: 3}
+  fireSound: {fileID: 8300000, guid: 36c05b4f581da1f44b5cdc504c3431b0, type: 3}
 --- !u!61 &5072637363874957021
 BoxCollider2D:
   m_ObjectHideFlags: 0

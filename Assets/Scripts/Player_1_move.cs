@@ -18,17 +18,23 @@ public class Player_1_move : MonoBehaviour
     Animator CharAni;
     private float prevVel;
     public bool stunned = false;
+    public GameObject face;
+    private Color faceCol;
+    public bool control;
+    public bool wait = true;
 
     // Start is called before the first frame update
     void Start()
     {
         //charnum = stat.GetComponent<Stats>().Player1.getChar();
-        CharAni = chara.GetComponent<Animator>();
+        
+        faceCol = face.GetComponent<SpriteRenderer>().color;
     }
 
     // Update is called once per frame
     void Update()
     {
+        CharAni = chara.GetComponent<Animator>();
         if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 && prevVel == 0)
         {
             jum = false;
@@ -43,116 +49,234 @@ public class Player_1_move : MonoBehaviour
 
         if (!stunned)
         {
-            if (Input.GetKey(KeyCode.D))
+            if (control)
             {
-                if (!Input.GetKey(KeyCode.Q))
+                if (Input.GetAxis("Horizontal1") > 0)
                 {
-                    chara.GetComponent<SpriteRenderer>().flipX = false;
-                    chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x + walkforce, chara.GetComponent<Rigidbody2D>().position.y);
-                    if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+                    if (!Input.GetKey(KeyCode.Joystick1Button2))
                     {
-                        CharAni.SetTrigger("Run");
-                    }
-                }
-                else
-                {
-                    CharAni.ResetTrigger("Run");
-                    CharAni.SetTrigger("Block");
-                }
-            }
-
-            // Move left
-            if (Input.GetKey(KeyCode.A))
-            {
-                if (!Input.GetKey(KeyCode.Q))
-                {
-                    chara.GetComponent<SpriteRenderer>().flipX = true;
-                    chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x - walkforce, chara.GetComponent<Rigidbody2D>().position.y);
-                    if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
-                    {
-                        CharAni.SetTrigger("Run");
-                    }
-                }
-                else
-                {
-                    CharAni.ResetTrigger("Run");
-                    CharAni.SetTrigger("Block");
-                }
-
-            }
-
-            // If not moving change animation to idle
-            if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A))
-            {
-                CharAni.SetTrigger("Idle");
-                CharAni.ResetTrigger("Run");
-            }
-
-            // If moving up change to jump up animation
-            if (chara.GetComponent<Rigidbody2D>().velocity.y > 0)
-            {
-                CharAni.SetTrigger("Jump Up");
-            }
-
-            // If falling down change to fall down animation
-            if (chara.GetComponent<Rigidbody2D>().velocity.y < 0)
-            {
-                CharAni.SetTrigger("Jump Down");
-            }
-
-            // If not moving horizontally or vertically change to idle animation
-            if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Q)))
-            {
-                CharAni.SetTrigger("Idle");
-            }
-
-            // Jump
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 || jum == true)
-                {
-                    if (jum == true)
-                    {
-                        jum = false;
+                        chara.GetComponent<SpriteRenderer>().flipX = false;
+                        chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x + walkforce, chara.GetComponent<Rigidbody2D>().position.y);
+                        if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+                        {
+                            CharAni.SetTrigger("Run");
+                        }
                     }
                     else
-                        jum = true;
-                    chara.GetComponent<Rigidbody2D>().velocity = new Vector3(chara.GetComponent<Rigidbody2D>().velocity.x, jumpforce);
+                    {
+                        CharAni.ResetTrigger("Run");
+                        CharAni.SetTrigger("Block");
+                    }
+                }
+
+                // Move left
+                if (Input.GetAxis("Horizontal1") < 0)
+                {
+                    if (!Input.GetKey(KeyCode.Joystick1Button2))
+                    {
+                        chara.GetComponent<SpriteRenderer>().flipX = true;
+                        chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x - walkforce, chara.GetComponent<Rigidbody2D>().position.y);
+                        if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+                        {
+                            CharAni.SetTrigger("Run");
+                        }
+                    }
+                    else
+                    {
+                        CharAni.ResetTrigger("Run");
+                        CharAni.SetTrigger("Block");
+                    }
+
+                }
+
+                // If not moving change animation to idle
+                if (Input.GetAxis("Horizontal1") > 0 || Input.GetAxis("Horizontal1") < 0)
+                {
+                    CharAni.SetTrigger("Idle");
+                    CharAni.ResetTrigger("Run");
+                }
+
+                // If moving up change to jump up animation
+                if (chara.GetComponent<Rigidbody2D>().velocity.y > 0)
+                {
+                    CharAni.SetTrigger("Jump Up");
+                }
+
+                // If falling down change to fall down animation
+                if (chara.GetComponent<Rigidbody2D>().velocity.y < 0)
+                {
+                    CharAni.SetTrigger("Jump Down");
+                }
+
+                // If not moving horizontally or vertically change to idle animation
+                if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 && !(Input.GetAxis("Horizontal1") < 0 || Input.GetAxis("Horizontal1") > 0 || Input.GetKey(KeyCode.Joystick1Button2)))
+                {
+                    CharAni.SetTrigger("Idle");
+                }
+
+                // Jump
+                if (Input.GetKeyDown(KeyCode.Joystick1Button0))
+                {
+                    if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 || jum == true)
+                    {
+                        if (jum == true)
+                        {
+                            jum = false;
+                        }
+                        else
+                            jum = true;
+                        chara.GetComponent<Rigidbody2D>().velocity = new Vector3(chara.GetComponent<Rigidbody2D>().velocity.x, jumpforce);
+                    }
+                }
+
+                // Shield
+                if (Input.GetKeyDown(KeyCode.Joystick1Button2))
+                {
+                    // TODO: Stop Character Movement, also can characters block?
+                    chara.GetComponent<Character_actions>().shield();
+                    CharAni.SetTrigger("Block");
+                    CharAni.ResetTrigger("Idle");
+                }
+
+                // When player releases shield button
+                if (Input.GetKeyUp(KeyCode.Joystick1Button2))
+                {
+                    chara.GetComponent<Character_actions>().stopShield();
+                }
+
+                // Attack
+                if (Input.GetKey(KeyCode.Joystick1Button1))
+                {
+                    // TODO: How do we do animation? Do we need a script for each character?
+                    // TODO: Also need to add an object for the projectiles
+                    if (!attacking)
+                    {
+                        plaAttack();
+                    }
+                }
+
+                // Special
+                if (Input.GetKey(KeyCode.Joystick1Button3))
+                {
+                    if (!spec)
+                    {
+                        plaSpecial();
+                    }
                 }
             }
-
-            // Shield
-            if (Input.GetKeyDown(KeyCode.Q))
+            else
             {
-                // TODO: Stop Character Movement, also can characters block?
-                chara.GetComponent<Character_actions>().shield();
-                CharAni.SetTrigger("Block");
-                CharAni.ResetTrigger("Idle");
-            }
-
-            // When player releases shield button
-            if (Input.GetKeyUp(KeyCode.Q))
-            {
-                chara.GetComponent<Character_actions>().stopShield();
-            }
-
-            // Attack
-            if (Input.GetKey(KeyCode.E))
-            {
-                // TODO: How do we do animation? Do we need a script for each character?
-                // TODO: Also need to add an object for the projectiles
-                if (!attacking)
+                if (Input.GetKey(KeyCode.D))
                 {
-                    plaAttack();
+                    if (!Input.GetKey(KeyCode.Q))
+                    {
+                        chara.GetComponent<SpriteRenderer>().flipX = false;
+                        chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x + walkforce, chara.GetComponent<Rigidbody2D>().position.y);
+                        if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+                        {
+                            CharAni.SetTrigger("Run");
+                        }
+                    }
+                    else
+                    {
+                        CharAni.ResetTrigger("Run");
+                        CharAni.SetTrigger("Block");
+                    }
                 }
-            }
 
-            // Special
-            if (Input.GetKey(KeyCode.R))
-            {
-                if (!spec)
+                // Move left
+                if (Input.GetKey(KeyCode.A))
                 {
-                    plaSpecial();
+                    if (!Input.GetKey(KeyCode.Q))
+                    {
+                        chara.GetComponent<SpriteRenderer>().flipX = true;
+                        chara.GetComponent<Rigidbody2D>().position = new Vector2(chara.GetComponent<Rigidbody2D>().position.x - walkforce, chara.GetComponent<Rigidbody2D>().position.y);
+                        if (chara.GetComponent<Rigidbody2D>().velocity.y == 0)
+                        {
+                            CharAni.SetTrigger("Run");
+                        }
+                    }
+                    else
+                    {
+                        CharAni.ResetTrigger("Run");
+                        CharAni.SetTrigger("Block");
+                    }
+
+                }
+
+                // If not moving change animation to idle
+                if (Input.GetKeyUp(KeyCode.D) || Input.GetKeyUp(KeyCode.A))
+                {
+                    CharAni.SetTrigger("Idle");
+                    CharAni.ResetTrigger("Run");
+                }
+
+                // If moving up change to jump up animation
+                if (chara.GetComponent<Rigidbody2D>().velocity.y > 0)
+                {
+                    CharAni.SetTrigger("Jump Up");
+                }
+
+                // If falling down change to fall down animation
+                if (chara.GetComponent<Rigidbody2D>().velocity.y < 0)
+                {
+                    CharAni.SetTrigger("Jump Down");
+                }
+
+                // If not moving horizontally or vertically change to idle animation
+                if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 && !(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.Q)))
+                {
+                    CharAni.SetTrigger("Idle");
+                }
+
+                // Jump
+                if (Input.GetKeyDown(KeyCode.W))
+                {
+                    if (chara.GetComponent<Rigidbody2D>().velocity.y == 0 || jum == true)
+                    {
+                        if (jum == true)
+                        {
+                            jum = false;
+                        }
+                        else
+                            jum = true;
+                        chara.GetComponent<Rigidbody2D>().velocity = new Vector3(chara.GetComponent<Rigidbody2D>().velocity.x, jumpforce);
+                    }
+                }
+
+                // Shield
+                if (Input.GetKeyDown(KeyCode.Q))
+                {
+                    // TODO: Stop Character Movement, also can characters block?
+                    chara.GetComponent<Character_actions>().shield();
+                    CharAni.SetTrigger("Block");
+                    CharAni.ResetTrigger("Idle");
+                }
+
+                // When player releases shield button
+                if (Input.GetKeyUp(KeyCode.Q))
+                {
+                    chara.GetComponent<Character_actions>().stopShield();
+                }
+
+                // Attack
+                if (Input.GetKey(KeyCode.E))
+                {
+                    // TODO: How do we do animation? Do we need a script for each character?
+                    // TODO: Also need to add an object for the projectiles
+                    if (!attacking)
+                    {
+                        plaAttack();
+                    }
+                }
+
+                // Special
+                if (Input.GetKey(KeyCode.R))
+                {
+                    if (!spec)
+                    {
+                        plaSpecial();
+                    }
                 }
             }
         }
@@ -163,7 +287,8 @@ public class Player_1_move : MonoBehaviour
         Vector2 pos = chara.GetComponent<Rigidbody2D>().transform.position;
         chara.GetComponent<SpriteRenderer>().enabled = false;
         StartCoroutine(DeathWait(2.0f));
-        chara.transform.position = new Vector3(-2.5f, 8f, 0);
+        chara.transform.position = new Vector3(-3.5f, 8f, 0);
+        face.GetComponent<SpriteRenderer>().color = Color.grey;
         for (int i = 0; i < soulNum; i++)
         {
             Instantiate(soul, pos, chara.GetComponent<Rigidbody2D>().transform.rotation);
@@ -209,8 +334,9 @@ public class Player_1_move : MonoBehaviour
     IEnumerator DeathWait(float sec)
     {
         yield return new WaitForSeconds(sec);
-        chara.transform.position = new Vector3(-2.5f, -1.8f, 0);
+        chara.transform.position = new Vector3(-2.5f, -2.8f, 0);
         chara.GetComponent<SpriteRenderer>().enabled = true;
+        face.GetComponent<SpriteRenderer>().color = faceCol;
     }
 
     public void plaAttack()

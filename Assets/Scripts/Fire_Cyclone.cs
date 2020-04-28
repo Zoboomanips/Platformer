@@ -7,11 +7,15 @@ public class Fire_Cyclone : MonoBehaviour
     public float dir;
     public int pla;
     private int count = 0;
+    public GameObject sound;
+    public AudioClip fireSound;
 
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(Wait(1f));
+        sound.GetComponent<AudioSource>().clip = fireSound;
+        sound.GetComponent<AudioSource>().Play();
     }
 
     // Update is called once per frame

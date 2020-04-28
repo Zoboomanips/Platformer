@@ -62,4 +62,66 @@ public class Button : MonoBehaviour
     {
         but.interactable = true;
     }
+
+    public void Left(int pla)
+    {
+        if (pla == 1)
+        {
+            GameManager.Instance.pla1cha -= 1;
+            if (GameManager.Instance.pla1cha == 0)
+                GameManager.Instance.pla1cha = 3;
+        }
+        if (pla == 2)
+        {
+            GameManager.Instance.pla2cha -= 1;
+            if (GameManager.Instance.pla2cha == 0)
+                GameManager.Instance.pla2cha = 3;
+        }
+        if (pla == 3)
+        {
+            GameManager.Instance.pla3cha -= 1;
+            if (GameManager.Instance.pla3cha == 0)
+                GameManager.Instance.pla3cha = 3;
+        }
+    }
+    public void Right(int pla)
+    {
+        if (pla == 1)
+        {
+            GameManager.Instance.pla1cha += 1;
+            if (GameManager.Instance.pla1cha == 4)
+                GameManager.Instance.pla1cha = 1;
+        }
+        if (pla == 2)
+        {
+            GameManager.Instance.pla2cha += 1;
+            if (GameManager.Instance.pla2cha == 4)
+                GameManager.Instance.pla2cha = 1;
+        }
+        if (pla == 3)
+        {
+            GameManager.Instance.pla3cha += 1;
+            if (GameManager.Instance.pla3cha == 4)
+                GameManager.Instance.pla3cha = 1;
+        }
+    }
+
+    public void Keyboard(int pla)
+    {
+        if (GameManager.Instance.pla1con)
+            GameManager.Instance.pla1con = false;
+        else
+            GameManager.Instance.pla1con = true;
+
+        if (GameManager.Instance.pla2con)
+            GameManager.Instance.pla2con = false;
+        else
+            GameManager.Instance.pla2con = true;
+
+        if (GameManager.Instance.pla3con)
+            GameManager.Instance.pla3con = false;
+        else
+            GameManager.Instance.pla3con = true;
+    }
+
 }
