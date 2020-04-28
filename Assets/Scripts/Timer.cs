@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Timer : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class Timer : MonoBehaviour
     public float endTime;
     string seconds;
     string minutes;
+    public GameObject stats;
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +42,12 @@ public class Timer : MonoBehaviour
         if ((t % 60) >= 0)
         {
             timerText.text = minutes + ":" + seconds;
+        } else
+        {
+            PlayerData.Player1Souls = stats.GetComponent<Stats>().Player1.souls;
+            PlayerData.Player2Souls = stats.GetComponent<Stats>().Player2.souls;
+            PlayerData.Player3Souls = stats.GetComponent<Stats>().Player3.souls;
+            SceneManager.LoadScene(4);
         }
     }
 }

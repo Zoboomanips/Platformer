@@ -1735,6 +1735,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timerText: {fileID: 240409513}
   endTime: 180
+  stats: {fileID: 1074377668}
 --- !u!1 &2098184854
 GameObject:
   m_ObjectHideFlags: 0
