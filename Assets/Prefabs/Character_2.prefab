@@ -29,7 +29,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8560394369149622200}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -2.38, y: -1.8, z: 0}
+  m_LocalPosition: {x: -3.5, y: -3.6, z: 0}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -164,8 +164,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
-  pla: 1
+  pla: 0
   def: 0
   dag: {fileID: 2310834881232409534, guid: 721dde6793e8f8f43a3d91adcfebfc31, type: 3}
+  fir: {fileID: 0}
+  fir4: {fileID: 0}
+  firCyc: {fileID: 0}
   stunDag: {fileID: 6731622477633872336, guid: 3648d57f734691846b1073019f807f22, type: 3}
   stats: {fileID: 0}
+  pla1: {fileID: 0}
+  pla2: {fileID: 0}
+  pla3: {fileID: 0}

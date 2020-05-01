@@ -24,7 +24,7 @@ public class Stun_Dagger : MonoBehaviour
         {
             gameObject.transform.position = new Vector2((gameObject.transform.position.x + (dir * 0.1f)), gameObject.transform.position.y);
         }
-        if (gameObject.transform.position.x >= 5 || gameObject.transform.position.x <= -5)
+        if (gameObject.transform.position.x >= 7.5 || gameObject.transform.position.x <= -7.5)
         {
             DestroyObject(gameObject);
         }
@@ -45,6 +45,12 @@ public class Stun_Dagger : MonoBehaviour
             coll.collider.gameObject.GetComponent<Character_actions>().player.GetComponent<Player_2_input>().stunned = true;
             StartCoroutine(StunWait(1f, coll.collider.gameObject.GetComponent<Character_actions>().player, 2));
         }
+        if (coll.collider.gameObject.GetComponent<Character_actions>().pla == 3 && !coll.collider.gameObject.GetComponent<Character_actions>().def)
+        {
+            coll.collider.gameObject.GetComponent<Character_actions>().stats.GetComponent<Stats>().Player3.hit(10);
+            coll.collider.gameObject.GetComponent<Character_actions>().player.GetComponent<Player_3_input>().stunned = true;
+            StartCoroutine(StunWait(1f, coll.collider.gameObject.GetComponent<Character_actions>().player, 3));
+        }
         done = true;
     }
 
@@ -64,6 +70,10 @@ public class Stun_Dagger : MonoBehaviour
         if (pla == 2)
         {
             player.GetComponent<Player_2_input>().stunned = false;
+        }
+        if (pla == 3)
+        {
+            player.GetComponent<Player_3_input>().stunned = false;
         }
         DestroyObject(gameObject);
     }
